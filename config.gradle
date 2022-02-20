@@ -1,0 +1,37 @@
+ext {
+
+    // 生产/开发环境
+    // false : 组件化模式(子模块可以独立运行)
+    // true : 继承化模式(打包整个apk,模块不可独立运行)
+    isRelease = true
+
+    // 用于存放APT 生成的类文件
+    packageNameForAPT = "com.netease.recyclerview.apt"
+
+    androidId = [
+            compileSdkVersion :30,
+            buildToolsVersion : "30.0.3",
+            minSdkVersion    : 19,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    appId = [
+            app    : "com.netease.recyclerview",
+            order: "com.wangyi.order",
+            personal: "com.wangyi.personal"
+    ]
+
+    // 生产/开发环境url
+    url = [
+            debug  : "https://11.12.32.12/",
+            release: "https://13.23.12.23"
+    ]
+
+    dependencies = [
+            "appcompat": "androidx.appcompat:appcompat:1.1.0",
+            "material" : "com.google.android.material:material:1.1.0",
+            "picasso" :  "com.squareup.picasso:picasso:2.5.2"
+    ]
+}

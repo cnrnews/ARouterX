@@ -1,0 +1,18 @@
+import javax.tools.JavaCompiler
+// 应用java 插件
+apply plugin: 'java-library'
+
+dependencies {
+    implementation project(':annotation')
+    implementation 'com.squareup:javapoet:1.8.0'
+    implementation 'com.google.auto.service:auto-service:1.0-rc6'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
+}
+
+// java 控制台输出中文乱码
+tasks.withType(JavaCompiler) {
+    options.encoding = "UTF-8"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

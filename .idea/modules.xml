@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recyclerViewX.iml" filepath="$PROJECT_DIR$/.idea/modules/recyclerViewX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation/recyclerViewX.annotation.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation/recyclerViewX.annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/recyclerViewX.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/recyclerViewX.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arouter_api/recyclerViewX.arouter_api.iml" filepath="$PROJECT_DIR$/.idea/modules/arouter_api/recyclerViewX.arouter_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/recyclerViewX.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/recyclerViewX.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/compiler/recyclerViewX.compiler.iml" filepath="$PROJECT_DIR$/.idea/modules/compiler/recyclerViewX.compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/order/recyclerViewX.order.iml" filepath="$PROJECT_DIR$/.idea/modules/order/recyclerViewX.order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/personal/recyclerViewX.personal.iml" filepath="$PROJECT_DIR$/.idea/modules/personal/recyclerViewX.personal.iml" />
+    </modules>
+  </component>
+</project>

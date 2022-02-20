@@ -1,0 +1,22 @@
+//import javax.tools.JavaCompiler
+//
+//plugins {
+//    id 'java-library'
+//}
+//
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_1_7
+//    targetCompatibility = JavaVersion.VERSION_1_7
+//}
+//
+//// java 控制台输出中文乱码
+//tasks.withType(JavaCompiler) {
+//    options.encoding = "UTF-8"
+//}
+
+// 应用java 插件
+apply plugin: 'java'
+
+// 设置jdk 版本
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7

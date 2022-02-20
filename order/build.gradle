@@ -1,0 +1,77 @@
+
+// 当发布版本时，各个Module 均不能运行
+if(isRelease){
+    apply plugin: 'com.android.library'
+}else{
+    apply plugin: 'com.android.application'
+}
+
+def androidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
+def support = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
+
+    defaultConfig {
+        // 如果需要发版，则不能配置 applicationId
+        if(!isRelease) {
+            applicationId appId.order
+        }
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 向注解处理器传递参数
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName : project.name, packageNameForAPT: packageNameForAPT]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // 配置资源路径，打包不集成到正式环境
+    sourceSets {
+        main {
+            if(!isRelease){
+                // 不是集成环境，则是独立运行的app
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            }else{
+                // 集成化开发环境，打包到整个 apk
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    // release 时，debug 目录下的文件不需要合并到主工程
+                    exclude '**/debug/**'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    support.each {k,v -> implementation v}
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation project(':common')
+
+    implementation project(':annotation')
+    annotationProcessor project(':compiler')
+}

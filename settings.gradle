@@ -1,0 +1,7 @@
+include ':arouter_api'
+include ':compiler'
+include ':annotation'
+include ':personal'
+include ':order'
+include ':common'
+include ':app'

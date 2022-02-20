@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+def androidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
+def support = rootProject.ext.dependencies
+def url = rootProject.ext.url
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
+
+    defaultConfig {
+        applicationId appId.app
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 切记: 不能在 android 跟节点，只能在 defaultConfig 或 buildTypes 节点下
+        buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
+
+        // 向注解处理器传递参数
+        javaCompileOptions {
+            annotationProcessorOptions  {
+                arguments = [moduleName : project.name, packageNameForAPT: packageNameForAPT]
+            }
+        }
+    }
+
+    // 配置签名信息
+    signingConfigs {
+        release {
+            storeFile file('../sign/comon.jks')
+            storePassword '123456'
+            keyPassword '123456'
+            keyAlias 'key'
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String","debug","\"${url.debug}\"")
+        }
+        release {
+            minifyEnabled false
+            buildConfigField("String","debug","\"${url.release}\"")
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    support.each {k,v -> implementation v}
+
+    implementation project(':common')
+    implementation project(':annotation')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    annotationProcessor project(':compiler')
+
+    // 如果是集成模式，各个模块不能独立运行了
+    if (isRelease){
+        implementation project(':order')
+        implementation project(':personal')
+    }
+}
